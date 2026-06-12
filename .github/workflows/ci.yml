@@ -102,6 +102,18 @@ jobs:
           "VCVARSALL=$vcvarsall" >> $env:GITHUB_ENV
           Write-Host "VCVARSALL=$vcvarsall"
 
+      - name: Add GitHub Packages NuGet source
+        shell: bash
+        run: |
+          dotnet nuget remove source github-vcpkg || true
+
+          dotnet nuget add source \
+            "https://nuget.pkg.github.com/alex-123654/index.json" \
+            --name github-vcpkg \
+            --username "$X_VCPKG_NUGET_ID" \
+            --password "$X_VCPKG_NUGET_API_KEY" \
+            --store-password-in-clear-text
+
       - name: Configure on Windows
         if: runner.os == 'Windows'
         shell: cmd
