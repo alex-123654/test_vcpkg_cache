@@ -2,6 +2,16 @@
   "version": 6,
   "configurePresets": [
     {
+        "name": "vs2026-x64-vcpkg",
+        "generator": "Visual Studio 18 2026",
+        "binaryDir": "${sourceDir}/build/vs2026-x64-vcpkg",
+        "cacheVariables": {
+            "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
+            "VCPKG_TARGET_TRIPLET": "x64-windows",
+            "VCPKG_BINARY_SOURCES": "clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read"
+        }
+    },
+    {
       "name": "win-x64-vcpkg",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/win-x64-vcpkg",
@@ -23,6 +33,10 @@
     }
   ],
   "buildPresets": [
+    {
+        "name": "vs2026-x64-vcpkg",
+        "configurePreset": "vs2026-x64-vcpkg"
+    },
     {
       "name": "win-x64-vcpkg",
       "configurePreset": "win-x64-vcpkg"
