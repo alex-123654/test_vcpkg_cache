@@ -10,8 +10,8 @@ permissions:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  X_VCPKG_NUGET_ID: ${{ github.actor }}
-  X_VCPKG_NUGET_API_KEY: ${{ secrets.GITHUB_TOKEN }}
+  X_VCPKG_NUGET_ID: ${{ secrets.X_VCPKG_NUGET_ID }}
+  X_VCPKG_NUGET_API_KEY: ${{ secrets.X_VCPKG_NUGET_API_KEY }}
 
 jobs:
   build:
@@ -22,14 +22,10 @@ jobs:
           - name: windows
             os: windows-2025-vs2026
             preset: win-x64-vcpkg
-            bootstrap: .\extern\vcpkg\bootstrap-vcpkg.bat
-            shell: pwsh
 
           - name: ubuntu
-            os: ubuntu-22.04
+            os: ubuntu-24.04
             preset: linux-x64-vcpkg
-            bootstrap: ./extern/vcpkg/bootstrap-vcpkg.sh
-            shell: bash
 
     runs-on: ${{ matrix.os }}
 
@@ -38,14 +34,36 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Bootstrap vcpkg
-        shell: ${{ matrix.shell }}
-        run: ${{ matrix.bootstrap }}
+      - name: Bootstrap vcpkg on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          .\extern\vcpkg\bootstrap-vcpkg.bat
+
+      - name: Install Ninja on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install ninja -y
+
+      - name: Bootstrap vcpkg on Linux
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          ./extern/vcpkg/bootstrap-vcpkg.sh
+
+      - name: Check tools
+        shell: bash
+        run: |
+          cmake --version
+          ninja --version || true
 
       - name: Configure
-        shell: ${{ matrix.shell }}
-        run: cmake --preset ${{ matrix.preset }}
+        shell: bash
+        run: |
+          cmake --preset ${{ matrix.preset }}
 
       - name: Build
-        shell: ${{ matrix.shell }}
-        run: cmake --build --preset ${{ matrix.preset }}
+        shell: bash
+        run: |
+          cmake --build --preset ${{ matrix.preset }}
