@@ -3,7 +3,7 @@
   "configurePresets": [
     {
       "name": "win-x64-vcpkg",
-      "generator": "Ninja",
+      "generator": "Visual Studio 18 2026",
       "binaryDir": "${sourceDir}/build/win-x64-vcpkg",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
