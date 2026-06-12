@@ -7,8 +7,7 @@
         "binaryDir": "${sourceDir}/build/vs2026-x64-vcpkg",
         "cacheVariables": {
             "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
-            "VCPKG_TARGET_TRIPLET": "x64-windows",
-            "VCPKG_BINARY_SOURCES": "clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read"
+            "VCPKG_TARGET_TRIPLET": "x64-windows"
         }
     },
     {
@@ -17,8 +16,7 @@
       "binaryDir": "${sourceDir}/build/win-x64-vcpkg",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
-        "VCPKG_TARGET_TRIPLET": "x64-windows",
-        "VCPKG_BINARY_SOURCES": "clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read"
+        "VCPKG_TARGET_TRIPLET": "x64-windows"
       }
     },
     {
@@ -27,8 +25,7 @@
       "binaryDir": "${sourceDir}/build/linux-x64-vcpkg",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
-        "VCPKG_TARGET_TRIPLET": "x64-linux",
-        "VCPKG_BINARY_SOURCES": "clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read"
+        "VCPKG_TARGET_TRIPLET": "x64-linux"
       }
     }
   ],
