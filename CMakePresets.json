@@ -12,14 +12,24 @@
       }
     },
     {
-    "name": "linux-x64-vcpkg",
-    "generator": "Ninja",
-    "binaryDir": "${sourceDir}/build/linux-x64-vcpkg",
-    "cacheVariables": {
+      "name": "linux-x64-vcpkg",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-x64-vcpkg",
+      "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
         "VCPKG_TARGET_TRIPLET": "x64-linux",
         "VCPKG_BINARY_SOURCES": "clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read"
+      }
     }
+  ],
+  "buildPresets": [
+    {
+      "name": "win-x64-vcpkg",
+      "configurePreset": "win-x64-vcpkg"
+    },
+    {
+      "name": "linux-x64-vcpkg",
+      "configurePreset": "linux-x64-vcpkg"
     }
   ]
 }
