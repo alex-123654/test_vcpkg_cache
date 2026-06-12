@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  workflow_dispatch:
+  push:
+
+permissions:
+  contents: read
+  packages: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  X_VCPKG_NUGET_ID: ${{ github.actor }}
+  X_VCPKG_NUGET_API_KEY: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Bootstrap vcpkg
+        shell: pwsh
+        run: |
+          .\extern\vcpkg\bootstrap-vcpkg.bat
+
+      - name: Install Ninja
+        shell: pwsh
+        run: |
+          choco install ninja -y
+
+      - name: Configure
+        shell: pwsh
+        run: |
+          cmake --preset win-x64-vcpkg
+
+      - name: Build
+        shell: pwsh
+        run: |
+          cmake --build build/win-x64-vcpkg
