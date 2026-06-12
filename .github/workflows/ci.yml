@@ -13,6 +13,8 @@ permissions:
 
 env:
   VCPKG_BINARY_SOURCES: clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read
+  X_VCPKG_NUGET_ID: ${{ secrets.X_VCPKG_NUGET_ID }}
+  X_VCPKG_NUGET_API_KEY: ${{ secrets.X_VCPKG_NUGET_API_KEY }}
 
 jobs:
   build:
@@ -52,6 +54,13 @@ jobs:
         shell: pwsh
         run: |
           choco install ninja -y
+
+      - name: Install Linux tools
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build mono-complete
 
       - name: Bootstrap vcpkg on Linux
         if: runner.os == 'Linux'
