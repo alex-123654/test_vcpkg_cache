@@ -1,0 +1,15 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "win-x64-vcpkg",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/win-x64-vcpkg",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "VCPKG_BINARY_SOURCES": "clear;nuget,https://nuget.pkg.github.com/alex-123654/index.json,read"
+      }
+    }
+  ]
+}
